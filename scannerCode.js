@@ -1,6 +1,7 @@
 const kmsScanner = {
   header: function () {
-    // CSS style
+    
+    // function to create the CSS style tag
     function styling() {
       const style = document.createElement("style");
       style.innerHTML = `
@@ -63,17 +64,22 @@ const kmsScanner = {
             `;
       document.head.appendChild(style);
     }
+    // calls function to append the styling to the body of the html page
     styling()
   },
   scannerBody: function (mainElement) {
+    // implements the scanner body
     const scanner = document.createElement("div");
     scanner.id = "reader";
     mainElement.appendChild(scanner);
 
+    // animated line which moves up and down on the scanner
+    // the styling used in the following code needs to be adjusted according to screen sizes since we have used "fixed" position
     const animatedLine = document.createElement("div");
     animatedLine.id = "animated-line";
     mainElement.appendChild(animatedLine);
 
+    // scanner functionality code
     function startScanning() {
       Html5Qrcode.getCameras()
         .then((devices) => {
@@ -116,10 +122,16 @@ const kmsScanner = {
           // console.log(err);
         });
     }
+    //starts scanning
     startScanning();
   },
   set: function () {
+    // calls functions on loading the page
+
+    // to set the css on the head tag of the html page
     kmsScanner.header();
+
+    // to set the body of the scanner with its functionality
     kmsScanner.scannerBody(myElement);
   },
 };
