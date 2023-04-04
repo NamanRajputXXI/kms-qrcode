@@ -1,5 +1,7 @@
-// import { Html5Qrcode } from "html5-qrcode";
-// import { Html5QrcodeScanner } from "html5-qrcode";
+const mainSec = document.querySelector("main");
+const scanner = document.createElement("div")
+scanner.id = "reader"
+mainSec.appendChild(scanner)
 
 Html5Qrcode.getCameras()
   .then((devices) => {
