@@ -10,43 +10,40 @@ main {
   text-align: center;
   font-size: 1.5rem;
 }
-#qr-shaded-region div:nth-child(1){
+#qr-shaded-region div:nth-child(1) {
   width: 50% !important;
 }
-#qr-shaded-region div:nth-child(2){
+#qr-shaded-region div:nth-child(2) {
   width: 50% !important;
 }
-#qr-shaded-region div:nth-child(3){
+#qr-shaded-region div:nth-child(3) {
   width: 50% !important;
 }
-#qr-shaded-region div:nth-child(4){
+#qr-shaded-region div:nth-child(4) {
   width: 50% !important;
 }
-#qr-shaded-region div:nth-child(5){
+#qr-shaded-region div:nth-child(5) {
   height: 50% !important;
 }
-#qr-shaded-region div:nth-child(6){
+#qr-shaded-region div:nth-child(6) {
   height: 55% !important;
 }
-#qr-shaded-region div:nth-child(7){
+#qr-shaded-region div:nth-child(7) {
   height: 55% !important;
 }
-#qr-shaded-region div:nth-child(8){
+#qr-shaded-region div:nth-child(8) {
   height: 50% !important;
 }
 
-#animated-line{
+#animated-line {
+  height: 4px;
+  width: 300px;
+  background-color: white;
+  position: fixed;
+  z-index: 1000;
+  filter: blur(2px);
   -webkit-animation: MoveUpDown 2s linear infinite;
 }
-
-/* @-webkit-keyframes MoveUpDown {
-  0%, 100%  {
-      bottom: 710px;
-  }
-  50% { 
-      bottom: 460px;
-  }
-} */
 
 @-webkit-keyframes MoveUpDown {
   0%,

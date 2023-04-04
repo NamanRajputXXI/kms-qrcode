@@ -3,6 +3,10 @@ const scanner = document.createElement("div")
 scanner.id = "reader"
 mainSec.appendChild(scanner)
 
+const animatedLine = document.createElement("div");
+animatedLine.id = "animated-line";
+mainSec.appendChild(animatedLine)
+
 Html5Qrcode.getCameras()
   .then((devices) => {
     /**
