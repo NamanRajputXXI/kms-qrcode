@@ -1,11 +1,73 @@
 const mainSec = document.querySelector("main");
-const scanner = document.createElement("div")
-scanner.id = "reader"
-mainSec.appendChild(scanner)
+const scanner = document.createElement("div");
+scanner.id = "reader";
+mainSec.appendChild(scanner);
 
 const animatedLine = document.createElement("div");
 animatedLine.id = "animated-line";
-mainSec.appendChild(animatedLine)
+
+const style = document.createElement("style");
+style.innerHTML = `
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#reader {
+  width: 600px;
+}
+#result {
+  text-align: center;
+  font-size: 1.5rem;
+}
+#qr-shaded-region div:nth-child(1) {
+  width: 50% !important;
+}
+#qr-shaded-region div:nth-child(2) {
+  width: 50% !important;
+}
+#qr-shaded-region div:nth-child(3) {
+  width: 50% !important;
+}
+#qr-shaded-region div:nth-child(4) {
+  width: 50% !important;
+}
+#qr-shaded-region div:nth-child(5) {
+  height: 50% !important;
+}
+#qr-shaded-region div:nth-child(6) {
+  height: 55% !important;
+}
+#qr-shaded-region div:nth-child(7) {
+  height: 55% !important;
+}
+#qr-shaded-region div:nth-child(8) {
+  height: 50% !important;
+}
+
+#animated-line {
+  height: 4px;
+  width: 300px;
+  background-color: white;
+  position: fixed;
+  z-index: 1000;
+  filter: blur(2px);
+  -webkit-animation: MoveUpDown 2s linear infinite;
+}
+
+@-webkit-keyframes MoveUpDown {
+  0%,
+  100% {
+    top: 350px;
+  }
+  50% {
+    top: 100px;
+  }
+}
+`;
+
+document.head.appendChild(style);
+mainSec.appendChild(animatedLine);
 
 Html5Qrcode.getCameras()
   .then((devices) => {
@@ -39,7 +101,7 @@ Html5Qrcode.getCameras()
         )
         .catch((err) => {
           // Start failed, handle it.
-        //   console.log(err);
+          //   console.log(err);
         });
     }
   })
