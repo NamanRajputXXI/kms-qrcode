@@ -7,9 +7,14 @@
     <title>Kitchen Management System | Qr code</title>
     <script src="./node_modules/html5-qrcode/html5-qrcode.min.js"></script>
     <script src="scanner.js" defer></script>
+    <!-- <script src="scannerCode.js"></script> -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <main></main>
   </body>
+  <script>
+    var myElement = document.querySelector("main");
+    kmsScanner.set(myElement);
+  </script>
 </html>
