@@ -63,6 +63,7 @@ const kmsScanner = {
             `;
       document.head.appendChild(style);
     }
+    styling()
   },
   scannerBody: function (mainElement) {
     const scanner = document.createElement("div");
