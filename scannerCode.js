@@ -87,49 +87,88 @@ const kmsScanner = {
     animatedLine.id = "animated-line";
     mainElement.appendChild(animatedLine);
 
+
+    const html5QrCode = new Html5Qrcode( /* element id */ "reader");
     // scanner functionality code
     function startScanning() {
-      Html5Qrcode.getCameras()
-        .then((devices) => {
-          /**
-           * devices would be an array of objects of type:
-           * { id: "id", label: "label" }
-           */
-          if (devices && devices.length) {
-            var cameraId = devices[0].id;
-            // .. use this to start scanning.
-            const html5QrCode = new Html5Qrcode(/* element id */ "reader");
-            html5QrCode
-              .start(
-                cameraId,
-                {
-                  fps: 10, // Optional, frame per seconds for qr code scanning
-                  qrbox: { width: 500, height: 800 }, // Optional, if you want bounded box UI
-                },
-                (decodedText, decodedResult) => {
-                  // do something when code is read
-                  // document.getElementById("result").innerHTML = `
-                  // <h2>Success!</h2>
-                  // <p><a href="${decodedResult}">${decodedResult}</a></p>`;
-                  console.log(decodedText);
-                  console.log(decodedResult);
-                },
-                (errorMessage) => {
-                  // parse error, ignore it.
-                  // console.error(errorMessage);
+        Html5Qrcode.getCameras()
+            .then((devices) => {
+                /**
+                 * devices would be an array of objects of type:
+                 * { id: "id", label: "label" }
+                 */
+                if (devices && devices.length) {
+                    var cameraId = devices[0].id;
+                    // .. use this to start scanning.
+
+                    html5QrCode
+                        .start(
+                            cameraId, {
+                                fps: 10, // Optional, frame per seconds for qr code scanning
+                                qrbox: { width: 500, height: 800 }, // Optional, if you want bounded box UI
+                            },
+                            (decodedText, decodedResult) => {
+                                // do something when code is read
+                                // document.getElementById("result").innerHTML = `
+                                // <h2>Success!</h2>
+                                // <p><a href="${decodedResult}">${decodedResult}</a></p>`;
+                                console.log(decodedText);
+                                console.log(decodedResult);
+                            },
+                            (errorMessage) => {
+                                // parse error, ignore it.
+                                // console.error(errorMessage);
+                            }
+                        )
+                        .catch((err) => {
+                            // Start failed, handle it.
+                            //   console.log(err);
+                        });
                 }
-              )
-              .catch((err) => {
-                // Start failed, handle it.
-                //   console.log(err);
-              });
-          }
-        })
-        .catch((err) => {
-          // handle err
-          // console.log(err);
-        });
+            })
+            .catch((err) => {
+                // handle err
+                // console.log(err);
+            });
     }
+
+    function handleDrop(event) {
+        event.preventDefault();
+        const file = event.dataTransfer.files[0];
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const imageData = event.target.result;
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement("canvas");
+                const context = canvas.getContext("2d");
+                canvas.width = img.width;
+                canvas.height = img.height;
+                context.drawImage(img, 0, 0, img.width, img.height);
+                const imageData = context.getImageData(0, 0, img.width, img.height);
+
+                // const jsQR = window.jsQR;
+
+                const code = jsQR(imageData.data, imageData.width, imageData.height);
+                if (code) {
+                    html5QrCode.stop();
+                    console.log(code.data);
+                } else {
+                    console.log("No QR code found.");
+                }
+            };
+            img.src = imageData;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function handleDragOver(event) {
+        event.preventDefault();
+    }
+
+    scanner.addEventListener("drop", handleDrop);
+    scanner.addEventListener("dragover", handleDragOver);
+
     //starts scanning
     startScanning();
   },
