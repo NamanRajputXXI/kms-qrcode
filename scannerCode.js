@@ -5,13 +5,21 @@ const kmsScanner = {
     function styling() {
       const style = document.createElement("style");
       style.innerHTML = `
+            *{
+                margin: 0;
+                padding: 0;
+            }
             main {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                overflow-y: hidden;
+                height: auto;
               }
               #reader {
-                width: 600px;
+                width: 100vw;
+                height: 100vh;
+                overflow-y: hidden;
               }
               #result {
                 text-align: center;
@@ -44,7 +52,7 @@ const kmsScanner = {
               
               #animated-line {
                 height: 4px;
-                width: 300px;
+                width: 600px;
                 background-color: white;
                 position: fixed;
                 z-index: 1000;
@@ -55,10 +63,10 @@ const kmsScanner = {
               @-webkit-keyframes MoveUpDown {
                 0%,
                 100% {
-                  top: 350px;
+                  top: 83%;
                 }
                 50% {
-                  top: 100px;
+                  top: 17%;
                 }
               }
             `;
@@ -96,7 +104,7 @@ const kmsScanner = {
                 cameraId,
                 {
                   fps: 10, // Optional, frame per seconds for qr code scanning
-                  qrbox: { width: 250, height: 250 }, // Optional, if you want bounded box UI
+                  qrbox: { width: 500, height: 800 }, // Optional, if you want bounded box UI
                 },
                 (decodedText, decodedResult) => {
                   // do something when code is read
