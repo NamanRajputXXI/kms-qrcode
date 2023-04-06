@@ -114,6 +114,7 @@ const kmsScanner = {
                                 // <p><a href="${decodedResult}">${decodedResult}</a></p>`;
                                 console.log(decodedText);
                                 console.log(decodedResult);
+                                html5QrCode.stop();
                             },
                             (errorMessage) => {
                                 // parse error, ignore it.
